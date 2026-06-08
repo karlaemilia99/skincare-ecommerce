@@ -225,6 +225,26 @@
   @media (max-width: 700px) {
     .grid-2, .grid-3 { grid-template-columns: 1fr; }
     .kpi-grid { grid-template-columns: repeat(2,1fr); }
+    .cat-grid { grid-template-columns: repeat(2,1fr); }
+    .insights-grid { grid-template-columns: 1fr; }
+    .conclusion-grid { grid-template-columns: 1fr; }
+    header { padding: 3rem 1.25rem 2.5rem; }
+    main { padding: 2rem 1.25rem; }
+    .section { margin-bottom: 3rem; }
+    .chart-wrap { height: 200px; }
+    .chart-wrap-lg { height: 240px; }
+    .product-row { flex-wrap: wrap; gap: 0.5rem; }
+    .score-bar-wrap { width: 100%; }
+    .product-name { width: 100%; }
+    .conclusion { padding: 1.5rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+
+  @media (max-width: 480px) {
+    .kpi-grid { grid-template-columns: repeat(2,1fr); }
+    .cat-grid { grid-template-columns: repeat(2,1fr); }
+    header h1 { font-size: 1.6rem; }
+    .section-title { font-size: 1.1rem; }
   }
 
   /* ── PRODUCT RANKING ── */
