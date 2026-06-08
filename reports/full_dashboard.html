@@ -68,8 +68,8 @@
   @media(max-width:700px) {
     .grid-2,.grid-3 { grid-template-columns:1fr; }
     .kpi-grid { grid-template-columns:repeat(2,1fr); }
-    .return-grid { grid-template-columns:1fr; }
-    .return-grid .chart-wrap { height: 180px; }
+    .return-grid { grid-template-columns: 1fr !important; }
+    .return-grid .chart-wrap { height: 220px; }
     .return-grid .card { min-width: 0; }
     .insights-grid { grid-template-columns:1fr; }
     .conclusion-grid { grid-template-columns:1fr; }
@@ -146,8 +146,9 @@
   .insight-text { font-size: 0.785rem; color: var(--ink2); line-height: 1.65; font-weight: 300; }
 
   /* RETURN BREAKDOWN */
-  .return-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.25rem; overflow: hidden; }
-  .return-grid .card { min-width: 0; }
+  .return-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.25rem; }
+  .return-grid .card { min-width: 0; overflow: hidden; }
+  .return-grid canvas { max-width: 100% !important; }
 
   /* CONCLUSION */
   .conclusion { background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%); border: 1px solid var(--border); border-radius: 14px; padding: 2.5rem; position: relative; overflow: hidden; }
