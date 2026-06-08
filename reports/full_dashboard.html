@@ -65,7 +65,30 @@
   .chart-wrap-lg { position: relative; height: 300px; }
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
   .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
-  @media(max-width:700px) { .grid-2,.grid-3 { grid-template-columns:1fr; } .kpi-grid { grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:700px) {
+    .grid-2,.grid-3 { grid-template-columns:1fr; }
+    .kpi-grid { grid-template-columns:repeat(2,1fr); }
+    .return-grid { grid-template-columns:1fr; }
+    .insights-grid { grid-template-columns:1fr; }
+    .conclusion-grid { grid-template-columns:1fr; }
+    header { padding: 3rem 1.25rem 2.5rem; }
+    main { padding: 2rem 1.25rem; }
+    .section { margin-bottom: 3rem; }
+    .chart-wrap { height: 200px; }
+    .chart-wrap-lg { height: 220px; }
+    .ret-label { width: 90px; font-size: 0.75rem; }
+    .cohort-table { font-size: 0.72rem; }
+    .cohort-table th, .cohort-table td { padding: 0.4rem 0.5rem; }
+    .conclusion { padding: 1.5rem; }
+    nav .nav-links { display: none; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+  @media(max-width:480px) {
+    header h1 { font-size: 1.6rem; }
+    .section-title { font-size: 1rem; }
+    .channel-card { padding: 1rem; }
+    .kpi-val { font-size: 1.3rem; }
+  }
 
   /* CHANNEL CARDS */
   .channel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap: 1rem; margin-bottom: 1.5rem; }
