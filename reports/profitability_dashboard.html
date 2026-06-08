@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skincare Analytics — Rentabilidad de Productos</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f0a1a;
+    --bg2: #1a1028;
+    --bg3: #221535;
+    --white: #ffffff;
+    --ink: #f0ebff;
+    --ink2: #b8a9d4;
+    --ink3: #7a6d99;
+    --accent: #a855f7;
+    --accent2: #7c3aed;
+    --accent-light: rgba(168,85,247,0.12);
+    --accent-glow: rgba(168,85,247,0.25);
+    --border: rgba(168,85,247,0.15);
+    --border2: rgba(168,85,247,0.08);
+    --success: #34d399;
+    --success-light: rgba(52,211,153,0.12);
+    --danger: #f87171;
+    --danger-light: rgba(248,113,113,0.12);
+    --warning: #fbbf24;
+    --warning-light: rgba(251,191,36,0.12);
+    --rose: #f472b6;
+    --rose-light: rgba(244,114,182,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 15px;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    padding: 5rem 2rem 4rem;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .header-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    border: 1px solid var(--border);
+    padding: 0.35rem 0.9rem;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+  }
+
+  header h1 {
+    font-size: clamp(1.8rem, 5vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #f0ebff 0%, #a855f7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .header-desc {
+    font-size: 0.95rem;
+    color: var(--ink2);
+    max-width: 540px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  .kpi-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .kpi-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  .kpi-val {
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.02em;
+  }
+
+  .kpi-label {
+    font-size: 0.72rem;
+    color: var(--ink3);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  .section { margin-bottom: 4rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border2);
+  }
+
+  .section-pill {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  .section-sub {
+    font-size: 0.8rem;
+    color: var(--ink3);
+    margin-top: 0.1rem;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover { border-color: rgba(168,85,247,0.3); }
+
+  .card-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+  }
+
+  .card-sub {
+    font-size: 0.775rem;
+    color: var(--ink3);
+    margin-bottom: 1.25rem;
+  }
+
+  .chart-wrap { position: relative; height: 260px; }
+  .chart-wrap-lg { position: relative; height: 340px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+
+  @media (max-width: 700px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: repeat(2,1fr); }
+  }
+
+  /* ── PRODUCT RANKING ── */
+  .product-list { display: flex; flex-direction: column; gap: 0.6rem; }
+
+  .product-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    transition: border-color 0.15s;
+  }
+
+  .product-row:hover { border-color: var(--border); }
+
+  .product-rank {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--ink3);
+    width: 24px;
+    flex-shrink: 0;
+    text-align: center;
+  }
+
+  .product-rank.gold { color: #fbbf24; }
+  .product-rank.silver { color: #94a3b8; }
+  .product-rank.bronze { color: #b45309; }
+
+  .product-name {
+    font-size: 0.825rem;
+    font-weight: 500;
+    color: var(--ink);
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .product-cat {
+    font-size: 0.68rem;
+    color: var(--ink3);
+    background: var(--bg);
+    border: 1px solid var(--border2);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .score-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 140px;
+    flex-shrink: 0;
+  }
+
+  .score-bar {
+    flex: 1;
+    height: 5px;
+    background: var(--bg);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+  }
+
+  .score-val {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    width: 32px;
+    text-align: right;
+  }
+
+  /* ── INSIGHT BOXES ── */
+  .insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .insight {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.1rem 1.25rem;
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .insight-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--accent-light);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+  }
+
+  .insight-title {
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+
+  .insight-text {
+    font-size: 0.785rem;
+    color: var(--ink2);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* ── CATEGORY PILLS ── */
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .cat-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .cat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--accent-glow);
+  }
+
+  .cat-emoji { font-size: 1.5rem; margin-bottom: 0.5rem; display: block; }
+  .cat-name { font-size: 0.8rem; font-weight: 600; color: var(--ink); margin-bottom: 0.75rem; }
+
+  .cat-stats { display: flex; justify-content: center; gap: 1.25rem; }
+  .cat-stat-val { font-size: 1rem; font-weight: 700; color: var(--accent); display: block; line-height: 1; margin-bottom: 0.15rem; }
+  .cat-stat-label { font-size: 0.65rem; color: var(--ink3); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  /* ── CONCLUSION ── */
+  .conclusion {
+    background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .conclusion::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(168,85,247,0.1) 0%, transparent 70%);
+  }
+
+  .conclusion h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .conclusion-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .conclusion-item {
+    background: rgba(168,85,247,0.06);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.1rem;
+  }
+
+  .conclusion-item-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .conclusion-item-text {
+    font-size: 0.785rem;
+    color: var(--ink2);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    font-size: 0.775rem;
+    color: var(--ink3);
+  }
+
+  footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <span class="header-tag">✨ Análisis de Rentabilidad</span>
+    <h1>Skincare Product<br>Profitability Analysis</h1>
+    <p class="header-desc">Análisis de rentabilidad real de 28 productos de una marca D2C de skincare. El score combina margen bruto, descuentos aplicados y tasa de devolución para identificar los productos verdaderamente rentables.</p>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-val">28</div>
+        <div class="kpi-label">Productos</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-val">1,671</div>
+        <div class="kpi-label">Items entregados</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-val">72.7</div>
+        <div class="kpi-label">Score promedio</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-val">6.3%</div>
+        <div class="kpi-label">Tasa de retorno</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-val">9</div>
+        <div class="kpi-label">Categorías</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- RANKING -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-pill">01</span>
+      <div>
+        <div class="section-title">Ranking de Rentabilidad</div>
+        <div class="section-sub">Score = Margen (50%) + Descuento bajo (30%) + Devoluciones bajas (20%)</div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:1.25rem">
+      <div class="card">
+        <p class="card-title">Top 10 — Más Rentables</p>
+        <p class="card-sub">Productos con mejor balance de margen, descuento y retorno</p>
+        <div class="product-list" id="topList"></div>
+      </div>
+      <div class="card">
+        <p class="card-title">Bottom 10 — Menos Rentables</p>
+        <p class="card-sub">Alta devolución o descuento erosionan el margen real</p>
+        <div class="product-list" id="bottomList"></div>
+      </div>
+    </div>
+
+    <div class="insights-grid">
+      <div class="insight">
+        <div class="insight-icon">💄</div>
+        <div>
+          <p class="insight-title">Lip Balm SPF 30 lidera con 76.3</p>
+          <p class="insight-text">Margen del 59%, solo 9.3% de descuento promedio y apenas 1.9% de devoluciones. El producto más simple del catálogo es el más rentable.</p>
+        </div>
+      </div>
+      <div class="insight">
+        <div class="insight-icon">⚗️</div>
+        <div>
+          <p class="insight-title">Los serums activos están al fondo</p>
+          <p class="insight-text">Vitamin C, Alpha Arbutin y Retinoid tienen devoluciones de 7-9% — posiblemente por irritación de piel. Su margen bruto es bueno pero el retorno lo penaliza.</p>
+        </div>
+      </div>
+      <div class="insight">
+        <div class="insight-icon">🧴</div>
+        <div>
+          <p class="insight-title">Cleansers = mejor relación riesgo/retorno</p>
+          <p class="insight-text">Salicylic Acid y Glycolic Acid Cleanser tienen margen ~56-57% con menos del 3% de devoluciones. Productos de uso diario con alta adherencia.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POR CATEGORÍA -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-pill">02</span>
+      <div>
+        <div class="section-title">Análisis por Categoría</div>
+        <div class="section-sub">Margen promedio, revenue y descuento por tipo de producto</div>
+      </div>
+    </div>
+
+    <div class="cat-grid">
+      <div class="cat-card">
+        <span class="cat-emoji">💧</span>
+        <div class="cat-name">Serum</div>
+        <div class="cat-stats">
+          <div><span class="cat-stat-val">₹430K</span><span class="cat-stat-label">Revenue</span></div>
+          <div><span class="cat-stat-val">50.5%</span><span class="cat-stat-label">Margen</span></div>
+        </div>
+      </div>
+      <div class="cat-card">
+        <span class="cat-emoji">🌿</span>
+        <div class="cat-name">Moisturizer</div>
+        <div class="cat-stats">
+          <div><span class="cat-stat-val">₹120K</span><span class="cat-stat-label">Revenue</span></div>
+          <div><span class="cat-stat-val">54.5%</span><span class="cat-stat-label">Margen</span></div>
+        </div>
+      </div>
+      <div class="cat-card">
+        <span class="cat-emoji">☀️</span>
+        <div class="cat-name">Sunscreen</div>
+        <div class="cat-stats">
+          <div><span class="cat-stat-val">₹115K</span><span class="cat-stat-label">Revenue</span></div>
+          <div><span class="cat-stat-val">56.8%</span><span class="cat-stat-label">Margen</span></div>
+        </div>
+      </div>
+      <div class="cat-card">
+        <span class="cat-emoji">🧼</span>
+        <div class="cat-name">Cleanser</div>
+        <div class="cat-stats">
+          <div><span class="cat-stat-val">₹90K</span><span class="cat-stat-label">Revenue</span></div>
+          <div><span class="cat-stat-val">56.2%</span><span class="cat-stat-label">Margen</span></div>
+        </div>
+      </div>
+      <div class="cat-card">
+        <span class="cat-emoji">💦</span>
+        <div class="cat-name">Toner</div>
+        <div class="cat-stats">
+          <div><span class="cat-stat-val">₹35K</span><span class="cat-stat-label">Revenue</span></div>
+          <div><span class="cat-stat-val">55.7%</span><span class="cat-stat-label">Margen</span></div>
+        </div>
+      </div>
+      <div class="cat-card">
+        <span class="cat-emoji">👁️</span>
+        <div class="cat-name">Eye Care</div>
+        <div class="cat-stats">
+          <div><span class="cat-stat-val">₹42K</span><span class="cat-stat-label">Revenue</span></div>
+          <div><span class="cat-stat-val">53.8%</span><span class="cat-stat-label">Margen</span></div>
+        </div>
+      </div>
+      <div class="cat-card">
+        <span class="cat-emoji">💋</span>
+        <div class="cat-name">Lip Care</div>
+        <div class="cat-stats">
+          <div><span class="cat-stat-val">₹18K</span><span class="cat-stat-label">Revenue</span></div>
+          <div><span class="cat-stat-val">59.1%</span><span class="cat-stat-label">Margen</span></div>
+        </div>
+      </div>
+      <div class="cat-card">
+        <span class="cat-emoji">🌸</span>
+        <div class="cat-name">Body Care</div>
+        <div class="cat-stats">
+          <div><span class="cat-stat-val">₹55K</span><span class="cat-stat-label">Revenue</span></div>
+          <div><span class="cat-stat-val">52.1%</span><span class="cat-stat-label">Margen</span></div>
+        </div>
+      </div>
+      <div class="cat-card">
+        <span class="cat-emoji">💆</span>
+        <div class="cat-name">Hair Care</div>
+        <div class="cat-stats">
+          <div><span class="cat-stat-val">₹68K</span><span class="cat-stat-label">Revenue</span></div>
+          <div><span class="cat-stat-val">51.2%</span><span class="cat-stat-label">Margen</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <p class="card-title">Margen Promedio por Categoría</p>
+        <p class="card-sub">Lip Care lidera en margen — Serum es el más bajo</p>
+        <div class="chart-wrap"><canvas id="marginChart"></canvas></div>
+      </div>
+      <div class="card">
+        <p class="card-title">Descuento vs Tasa de Devolución</p>
+        <p class="card-sub">Categorías con mayor descuento tienden a mayor retorno</p>
+        <div class="chart-wrap"><canvas id="discReturnChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARGEN VS DEVOLUCIÓN -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-pill">03</span>
+      <div>
+        <div class="section-title">Margen Real vs Tasa de Devolución</div>
+        <div class="section-sub">Productos en zona ideal: alto margen + baja devolución</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="card-title">Dispersión por Producto y Categoría</p>
+      <p class="card-sub">Zona ideal: margen alto (eje Y arriba) + devolución baja (eje X izquierda)</p>
+      <div class="chart-wrap-lg"><canvas id="scatterChart"></canvas></div>
+    </div>
+
+    <div class="insights-grid">
+      <div class="insight">
+        <div class="insight-icon">🎯</div>
+        <div>
+          <p class="insight-title">Zona ideal — alto margen, baja devolución</p>
+          <p class="insight-text">Lip Care y Toner se ubican en la esquina superior izquierda — margen 55-59% con devoluciones menores al 3%. Son los productos más eficientes del catálogo.</p>
+        </div>
+      </div>
+      <div class="insight">
+        <div class="insight-icon">⚠️</div>
+        <div>
+          <p class="insight-title">Serums activos — zona de riesgo</p>
+          <p class="insight-text">Vitamin C, Retinoid y Alpha Arbutin tienen devoluciones del 7-9%. A pesar de su margen bruto del 50%, el retorno frecuente genera costos operativos ocultos.</p>
+        </div>
+      </div>
+      <div class="insight">
+        <div class="insight-icon">📊</div>
+        <div>
+          <p class="insight-title">Revenue ≠ Rentabilidad</p>
+          <p class="insight-text">Serum genera el mayor revenue (₹430K) pero tiene el peor score de rentabilidad promedio. Un negocio puede estar creciendo en ventas pero erosionando su margen real.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RATING -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-pill">04</span>
+      <div>
+        <div class="section-title">Rating vs Rentabilidad</div>
+        <div class="section-sub">¿Los productos mejor valorados son también los más rentables?</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <p class="card-title">Correlación Rating — Profitability Score</p>
+        <p class="card-sub">Tendencia positiva débil — el rating no garantiza rentabilidad</p>
+        <div class="chart-wrap"><canvas id="ratingChart"></canvas></div>
+      </div>
+      <div class="card">
+        <p class="card-title">Rating Promedio por Categoría</p>
+        <p class="card-sub">Todas las categorías tienen ratings similares (3.5–4.3)</p>
+        <div class="chart-wrap"><canvas id="ratingCatChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCLUSIÓN -->
+  <div class="section">
+    <div class="conclusion">
+      <h3>✨ Conclusiones del análisis</h3>
+      <div class="conclusion-grid">
+        <div class="conclusion-item">
+          <p class="conclusion-item-title">El producto más simple es el más rentable</p>
+          <p class="conclusion-item-text">Lip Balm SPF 30 lidera con score 76.3 — margen alto, descuento mínimo y casi sin devoluciones. La simplicidad del producto reduce la fricción post-compra.</p>
+        </div>
+        <div class="conclusion-item">
+          <p class="conclusion-item-title">Serums activos: revenue ≠ rentabilidad</p>
+          <p class="conclusion-item-text">La categoría Serum genera el mayor revenue pero tiene el peor score. Las devoluciones por irritación (7-9%) generan costos operativos que no aparecen en el margen bruto.</p>
+        </div>
+        <div class="conclusion-item">
+          <p class="conclusion-item-title">Cleansers — la categoría más eficiente</p>
+          <p class="conclusion-item-text">Margen ~56%, devoluciones menores al 3% y descuentos bajos. Son productos de uso diario con alta adherencia — el cliente los usa, no los devuelve.</p>
+        </div>
+        <div class="conclusion-item">
+          <p class="conclusion-item-title">El rating no garantiza rentabilidad</p>
+          <p class="conclusion-item-text">La correlación entre rating y profitability score es positiva pero débil. Un producto puede tener buenas reseñas y aun así erosionar el margen si tiene alta tasa de retorno.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span>Karla Altamirano — Machine Learning Portfolio</span>
+  <span>Dataset: <a href="https://www.kaggle.com" target="_blank">D2C Skincare E-Commerce — Kaggle</a></span>
+</footer>
+
+<script>
+const C = {
+  accent: '#a855f7',
+  accent2: '#7c3aed',
+  success: '#34d399',
+  danger: '#f87171',
+  warning: '#fbbf24',
+  rose: '#f472b6',
+  ink2: '#b8a9d4',
+  ink3: '#7a6d99',
+  grid: 'rgba(168,85,247,0.08)',
+  bg3: '#221535',
+};
+
+// Chart defaults
+Chart.defaults.color = C.ink2;
+Chart.defaults.font.family = 'Inter';
+
+const baseOpts = (extra = {}) => ({
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: { labels: { font: { size: 11 }, color: C.ink2, boxWidth: 10 } },
+    ...extra.plugins
+  },
+  scales: {
+    y: { grid: { color: C.grid }, ticks: { color: C.ink3, font: { size: 10 } }, ...extra.y },
+    x: { grid: { display: false }, ticks: { color: C.ink3, font: { size: 10 } }, ...extra.x }
+  },
+  ...extra
+});
+
+// ── TOP / BOTTOM LISTS ──
+const products = [
+  { name: 'Lip Balm SPF 30', cat: 'Lip Care', score: 76.35 },
+  { name: 'Rose Water Toner', cat: 'Toner', score: 75.56 },
+  { name: 'Salicylic Acid Cleanser', cat: 'Cleanser', score: 75.30 },
+  { name: 'Glycolic Acid Cleanser', cat: 'Cleanser', score: 74.60 },
+  { name: 'Vitamin B5 Moisturizer', cat: 'Moisturizer', score: 74.09 },
+  { name: 'Caffeine Under Eye Cream', cat: 'Eye Care', score: 73.90 },
+  { name: 'Multi-Peptide Eye Cream', cat: 'Eye Care', score: 73.90 },
+  { name: 'Body Lotion Niacinamide', cat: 'Body Care', score: 73.50 },
+  { name: 'Ceramide Moisturizer', cat: 'Moisturizer', score: 73.30 },
+  { name: 'Body Wash Salicylic Acid', cat: 'Body Care', score: 73.20 },
+];
+
+const bottom = [
+  { name: 'Hair Growth Actives Serum', cat: 'Hair Care', score: 70.42 },
+  { name: 'Granactive Retinoid 2%', cat: 'Serum', score: 70.43 },
+  { name: 'Alpha Arbutin 2% Serum', cat: 'Serum', score: 70.67 },
+  { name: 'Vitamin C 10% Face Serum', cat: 'Serum', score: 70.70 },
+  { name: '2% Salicylic Acid Serum', cat: 'Serum', score: 70.73 },
+  { name: 'Retinol 0.5% Face Serum', cat: 'Serum', score: 71.10 },
+  { name: 'SPF 60 PA++++ Sunscreen', cat: 'Sunscreen', score: 72.70 },
+  { name: 'Oat Extract Gentle Cleanser', cat: 'Cleanser', score: 72.70 },
+  { name: 'PHA 3% Alcohol-Free Toner', cat: 'Toner', score: 73.00 },
+  { name: 'SPF 50 Sunscreen', cat: 'Sunscreen', score: 73.00 },
+];
+
+const maxScore = 76.35;
+const rankClasses = ['gold','silver','bronze','','','','','','',''];
+
+function buildList(containerId, data) {
+  const el = document.getElementById(containerId);
+  data.forEach((p, i) => {
+    const pct = ((p.score / maxScore) * 100).toFixed(1);
+    el.innerHTML += `
+      <div class="product-row">
+        <span class="product-rank ${rankClasses[i]}">#${i+1}</span>
+        <span class="product-name">${p.name}</span>
+        <span class="product-cat">${p.cat}</span>
+        <div class="score-bar-wrap">
+          <div class="score-bar"><div class="score-bar-fill" style="width:${pct}%"></div></div>
+          <span class="score-val">${p.score}</span>
+        </div>
+      </div>`;
+  });
+}
+
+buildList('topList', products);
+buildList('bottomList', bottom);
+
+// ── MARGEN POR CATEGORÍA ──
+new Chart(document.getElementById('marginChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Serum','Moisturizer','Sunscreen','Cleanser','Toner','Eye Care','Lip Care','Body Care','Hair Care'],
+    datasets: [{
+      data: [50.5, 54.5, 56.8, 56.2, 55.7, 53.8, 59.1, 52.1, 51.2],
+      backgroundColor: [
+        '#a855f7','#7c3aed','#34d399','#34d399','#34d399',
+        '#a855f7','#fbbf24','#f472b6','#f87171'
+      ],
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    ...baseOpts({ plugins: { legend: { display: false } } }),
+    scales: {
+      y: { min: 48, max: 62, grid: { color: C.grid }, ticks: { color: C.ink3, font: { size: 10 }, callback: v => `${v}%` } },
+      x: { grid: { display: false }, ticks: { color: C.ink3, font: { size: 9 }, maxRotation: 30 } }
+    }
+  }
+});
+
+// ── DESCUENTO VS DEVOLUCIÓN ──
+new Chart(document.getElementById('discReturnChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Cleanser','Toner','Lip Care','Eye Care','Moisturizer','Serum','Hair Care','Sunscreen','Body Care'],
+    datasets: [
+      { label: 'Descuento %', data: [9.0, 9.4, 9.3, 9.2, 9.1, 9.5, 9.9, 10.0, 10.4], backgroundColor: C.accent, borderRadius: 4 },
+      { label: 'Dev. %', data: [2.6, 1.5, 1.9, 3.2, 3.8, 7.8, 5.6, 4.2, 4.0], backgroundColor: C.danger, borderRadius: 4 }
+    ]
+  },
+  options: {
+    ...baseOpts(),
+    scales: {
+      y: { grid: { color: C.grid }, ticks: { color: C.ink3, font: { size: 10 }, callback: v => `${v}%` } },
+      x: { grid: { display: false }, ticks: { color: C.ink3, font: { size: 9 }, maxRotation: 30 } }
+    }
+  }
+});
+
+// ── SCATTER MARGEN VS DEVOLUCIÓN ──
+const scatterData = [
+  { x: 1.9,  y: 59.1, label: 'Lip Balm SPF30',     cat: 'Lip Care' },
+  { x: 0.0,  y: 56.3, label: 'Rose Water Toner',    cat: 'Toner' },
+  { x: 2.9,  y: 57.1, label: 'Salicylic Cleanser',  cat: 'Cleanser' },
+  { x: 1.3,  y: 55.0, label: 'Glycolic Cleanser',   cat: 'Cleanser' },
+  { x: 2.6,  y: 55.1, label: 'Vit B5 Moisturizer',  cat: 'Moisturizer' },
+  { x: 3.2,  y: 54.2, label: 'Caffeine Eye Cream',  cat: 'Eye Care' },
+  { x: 8.7,  y: 50.4, label: 'Alpha Arbutin Serum', cat: 'Serum' },
+  { x: 7.6,  y: 50.1, label: 'Vitamin C Serum',     cat: 'Serum' },
+  { x: 7.4,  y: 50.1, label: 'Retinoid 2% Serum',   cat: 'Serum' },
+  { x: 5.6,  y: 48.7, label: 'Hair Growth Serum',   cat: 'Hair Care' },
+  { x: 4.0,  y: 53.5, label: 'Ceramide Moisturizer',cat: 'Moisturizer' },
+  { x: 4.2,  y: 55.8, label: 'SPF 50 Sunscreen',    cat: 'Sunscreen' },
+  { x: 10.5, y: 52.3, label: 'Aqualogica Sunscreen', cat: 'Sunscreen' },
+  { x: 3.0,  y: 52.0, label: 'Body Lotion',         cat: 'Body Care' },
+  { x: 2.0,  y: 51.5, label: 'Body Wash',           cat: 'Body Care' },
+];
+
+const catColorMap = {
+  'Lip Care': C.warning, 'Toner': C.success, 'Cleanser': '#34d399',
+  'Moisturizer': C.accent, 'Eye Care': C.rose, 'Serum': C.danger,
+  'Hair Care': '#f87171', 'Sunscreen': '#60a5fa', 'Body Care': '#c084fc'
+};
+
+const catGroups = {};
+scatterData.forEach(p => {
+  if (!catGroups[p.cat]) catGroups[p.cat] = [];
+  catGroups[p.cat].push({ x: p.x, y: p.y });
+});
+
+new Chart(document.getElementById('scatterChart'), {
+  type: 'scatter',
+  data: {
+    datasets: Object.entries(catGroups).map(([cat, pts]) => ({
+      label: cat,
+      data: pts,
+      backgroundColor: catColorMap[cat] || C.accent,
+      pointRadius: 7,
+      pointHoverRadius: 9,
+    }))
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { labels: { font: { size: 10 }, color: C.ink2, boxWidth: 8 } } },
+    scales: {
+      x: { title: { display: true, text: 'Tasa de devolución (%)', color: C.ink3, font: { size: 11 } }, grid: { color: C.grid }, ticks: { color: C.ink3 } },
+      y: { title: { display: true, text: 'Margen promedio (%)', color: C.ink3, font: { size: 11 } }, grid: { color: C.grid }, ticks: { color: C.ink3 }, min: 47, max: 61 }
+    }
+  }
+});
+
+// ── RATING SCATTER ──
+const ratingData = [
+  { x: 4.4, y: 76.35 }, { x: 4.2, y: 75.56 }, { x: 4.1, y: 75.30 },
+  { x: 4.3, y: 74.60 }, { x: 4.0, y: 74.09 }, { x: 3.9, y: 73.90 },
+  { x: 3.8, y: 73.50 }, { x: 4.1, y: 73.30 }, { x: 3.7, y: 73.20 },
+  { x: 3.5, y: 71.20 }, { x: 3.6, y: 70.70 }, { x: 3.4, y: 70.67 },
+  { x: 3.8, y: 70.43 }, { x: 3.3, y: 70.42 }, { x: 4.2, y: 74.30 },
+];
+
+new Chart(document.getElementById('ratingChart'), {
+  type: 'scatter',
+  data: {
+    datasets: [{
+      label: 'Productos',
+      data: ratingData,
+      backgroundColor: C.accent,
+      pointRadius: 6,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { title: { display: true, text: 'Rating promedio', color: C.ink3 }, grid: { color: C.grid }, ticks: { color: C.ink3 }, min: 3.0, max: 4.6 },
+      y: { title: { display: true, text: 'Profitability Score', color: C.ink3 }, grid: { color: C.grid }, ticks: { color: C.ink3 }, min: 69, max: 78 }
+    }
+  }
+});
+
+// ── RATING POR CATEGORÍA ──
+new Chart(document.getElementById('ratingCatChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Serum','Moisturizer','Sunscreen','Cleanser','Toner','Eye Care','Lip Care','Body Care','Hair Care'],
+    datasets: [{
+      data: [3.8, 4.1, 4.0, 4.2, 4.3, 3.9, 4.4, 3.7, 3.6],
+      backgroundColor: C.accent,
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    ...baseOpts({ plugins: { legend: { display: false } } }),
+    scales: {
+      y: { min: 3.0, max: 5.0, grid: { color: C.grid }, ticks: { color: C.ink3, font: { size: 10 } } },
+      x: { grid: { display: false }, ticks: { color: C.ink3, font: { size: 9 }, maxRotation: 30 } }
+    }
+  }
+});
+</script>
+</body>
+</html>

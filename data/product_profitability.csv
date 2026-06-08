@@ -1,0 +1,29 @@
+product_id,product_name,category,skin_type,units_sold,total_revenue,total_cost,total_margin,avg_discount,orders_count,avg_margin_pct,return_count,return_rate,avg_rating,profitability_score
+P001,2% Salicylic Acid Face Serum,Serum,Oily / Acne-Prone,87,43343.55,21489,21854.55,9.142857142857142,69,50.42,6.0,8.7,3.7,70.73
+P002,10% Niacinamide Face Serum,Serum,Oily / Combination,114,61427.45,30210,31217.449999999997,10.0,86,50.82,3.0,3.49,3.67,71.71
+P003,Vitamin C 10% Face Serum,Serum,All Skin Types,88,55570.5,27720,27850.5,9.477611940298507,66,50.12,5.0,7.58,3.93,70.7
+P004,Alpha Arbutin 2% Serum,Serum,All Skin Types,130,76549.55,37960,38589.549999999996,9.285714285714286,103,50.41,9.0,8.74,3.74,70.67
+P005,Retinol 0.3% Face Serum,Serum,Normal / Dry,71,44631.15,22578,22053.149999999998,9.903846153846153,52,49.41,1.0,1.92,3.6,71.35
+P006,Hyaluronic Acid 2% Serum,Serum,Dry / Dehydrated,108,58432.45,27864,30568.449999999997,9.27710843373494,79,52.31,3.0,3.8,4.1,72.61
+P007,AHA BHA 10% Exfoliating Serum,Serum,Oily / Combination,68,43407.9,21896,21511.9,8.448275862068966,58,49.56,3.0,5.17,3.92,71.21
+P008,Granactive Retinoid 2% Serum,Serum,Normal / Mature,66,47340.75,23628,23712.75,10.454545454545455,54,50.09,4.0,7.41,3.85,70.43
+P009,Ceramide Moisturizer,Moisturizer,Dry / Sensitive,95,30799.25,13775,17024.25,7.662337662337662,77,55.27,8.0,10.39,3.93,73.26
+P010,Vitamin B5 Moisturizer,Moisturizer,All Skin Types,91,32797.8,14742,18055.8,9.746835443037975,78,55.05,2.0,2.56,4.5,74.09
+P011,Sepicalm 3% Moisturizer,Moisturizer,Sensitive,82,25529.35,12136,13393.35,10.217391304347826,69,52.46,3.0,4.35,4.12,72.29
+P012,Marula Oil 5% Moisturizer,Moisturizer,Dry,91,37334.35,17927,19407.35,8.785714285714286,68,51.98,3.0,4.41,4.0,72.47
+P013,SPF 50 Sunscreen,Sunscreen,All Skin Types,71,25256.7,11928,13328.7,11.228070175438596,56,52.77,0.0,0.0,3.67,73.02
+P014,SPF 60 PA++++ Sunscreen,Sunscreen,All Skin Types,119,53592.6,25109,28483.6,10.0,86,53.15,4.0,4.65,3.96,72.65
+P015,Aqualogica Lightweight Sunscreen,Sunscreen,Oily / Combination,83,33787.25,15936,17851.25,8.863636363636363,65,52.83,2.0,3.08,4.13,73.14
+P016,Salicylic Acid Face Cleanser,Cleanser,Oily / Acne-Prone,86,23441.6,10062,13379.6,8.840579710144928,68,57.08,2.0,2.94,3.77,75.3
+P017,Oat Extract Gentle Cleanser,Cleanser,Sensitive / Dry,52,14322.1,6292,8030.1,9.390243902439025,39,56.07,5.0,12.82,4.19,72.65
+P018,Glycolic Acid Face Cleanser,Cleanser,Normal / Oily,98,31165.7,14014,17151.7,8.846153846153847,77,55.03,1.0,1.3,4.19,74.6
+P019,PHA 3% Alcohol-Free Toner,Toner,Sensitive,27,9675.75,4482,5193.75,10.2,25,53.68,1.0,4.0,4.43,72.98
+P020,Rose Water Hydrating Toner,Toner,All Skin Types,36,11447.2,5004,6443.2,8.620689655172415,29,56.29,0.0,0.0,3.5,75.56
+P021,Caffeine Under Eye Cream,Eye Care,All Skin Types,58,20927.55,9106,11821.550000000001,10.0,44,56.49,3.0,6.82,3.67,73.88
+P022,Multi-Peptide Eye Cream,Eye Care,Mature / Dry,31,14296.35,6758,7538.35,8.333333333333334,24,52.73,0.0,0.0,3.75,73.86
+P023,Anti-Dandruff Shampoo,Hair Care,Scalp Care,37,16467.0,8177,8290.0,11.379310344827585,29,50.34,1.0,3.45,3.29,71.07
+P024,Hair Growth Actives Serum,Hair Care,Scalp Care,73,52973.7,27156,25817.7,9.444444444444445,54,48.74,3.0,5.56,3.8,70.42
+P025,Bond Repair Shampoo,Hair Care,Hair Care,73,39593.9,19418,20175.899999999998,8.983050847457626,56,50.96,2.0,3.57,4.07,72.07
+P026,Body Lotion with Niacinamide,Body Care,All Skin Types,68,27231.85,12376,14855.85,10.09433962264151,53,54.55,2.0,3.77,4.23,73.49
+P027,Body Wash with Salicylic Acid,Body Care,Oily / Acne-Prone,36,12887.7,5724,7163.7,10.714285714285714,28,55.59,2.0,7.14,3.25,73.15
+P028,Lip Balm SPF 30,Lip Care,All Skin Types,63,14155.65,5796,8359.65,9.326923076923077,52,59.06,1.0,1.92,3.84,76.35

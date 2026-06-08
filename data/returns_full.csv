@@ -1,0 +1,82 @@
+return_id,order_id,product_id,return_date,return_reason,refund_status,category,skin_type,customer_id,sales_channel,acquisition_channel
+R00001,O00011,P003,2024-03-31,Late delivery,Under Review,Serum,All Skin Types,C0492,Website,Instagram
+R00002,O00023,P007,2025-05-17,Skin irritation,Replacement Sent,Serum,Oily / Combination,C0382,Mobile App,YouTube
+R00003,O00032,P024,2024-07-18,Skin irritation,Refunded,Hair Care,Scalp Care,C0391,Website,Website Direct
+R00004,O00062,P027,2024-04-10,Changed mind,Under Review,Body Care,Oily / Acne-Prone,C0207,Website,Google Search
+R00005,O00130,P017,2024-08-26,Skin irritation,Replacement Sent,Cleanser,Sensitive / Dry,C0080,Mobile App,Google Search
+R00006,O00158,P004,2024-06-11,Damaged packaging,Replacement Sent,Serum,All Skin Types,C0257,Website,Google Search
+R00007,O00161,P009,2024-08-26,Late delivery,Replacement Sent,Moisturizer,Dry / Sensitive,C0277,Website,Instagram
+R00008,O00163,P024,2025-08-28,Skin irritation,Under Review,Hair Care,Scalp Care,C0486,Mobile App,Instagram
+R00009,O00196,P003,2024-05-02,Wrong item received,Under Review,Serum,All Skin Types,C0023,Mobile App,Instagram
+R00010,O00204,P011,2024-03-04,Skin irritation,Replacement Sent,Moisturizer,Sensitive,C0377,Website,Instagram
+R00011,O00214,P001,2025-08-11,Late delivery,Refunded,Serum,Oily / Acne-Prone,C0410,Website,Google Search
+R00012,O00218,P012,2026-01-05,Damaged packaging,Refunded,Moisturizer,Dry,C0237,Mobile App,Instagram
+R00013,O00228,P017,2025-10-27,Wrong item received,Refunded,Cleanser,Sensitive / Dry,C0462,Mobile App,YouTube
+R00014,O00238,P009,2025-03-15,Wrong item received,Under Review,Moisturizer,Dry / Sensitive,C0443,Mobile App,Google Search
+R00015,O00253,P017,2024-02-04,Skin irritation,Replacement Sent,Cleanser,Sensitive / Dry,C0115,Mobile App,Instagram
+R00016,O00259,P002,2024-06-08,Wrong item received,Replacement Sent,Serum,Oily / Combination,C0487,Website,Google Search
+R00017,O00308,P011,2025-06-29,Late delivery,Replacement Sent,Moisturizer,Sensitive,C0186,Website,Instagram
+R00018,O00329,P008,2024-11-02,Skin irritation,Refunded,Serum,Normal / Mature,C0016,Mobile App,Instagram
+R00019,O00343,P008,2025-07-13,Late delivery,Refunded,Serum,Normal / Mature,C0365,Website,Instagram
+R00020,O00345,P002,2024-02-07,Changed mind,Replacement Sent,Serum,Oily / Combination,C0120,Mobile App,Referral
+R00021,O00348,P018,2025-07-28,Late delivery,Refunded,Cleanser,Normal / Oily,C0304,Website,Referral
+R00022,O00392,P003,2025-02-18,Late delivery,Under Review,Serum,All Skin Types,C0452,Website,Instagram
+R00023,O00419,P004,2026-01-09,Skin irritation,Under Review,Serum,All Skin Types,C0284,Mobile App,Google Search
+R00024,O00422,P009,2024-11-16,Skin irritation,Replacement Sent,Moisturizer,Dry / Sensitive,C0405,Website,YouTube
+R00025,O00433,P004,2024-01-23,Changed mind,Replacement Sent,Serum,All Skin Types,C0200,Mobile App,Google Search
+R00026,O00449,P014,2024-03-13,Wrong item received,Replacement Sent,Sunscreen,All Skin Types,C0420,Website,YouTube
+R00027,O00451,P016,2024-11-20,Changed mind,Refunded,Cleanser,Oily / Acne-Prone,C0270,Mobile App,Instagram
+R00027,O00451,P016,2024-11-20,Changed mind,Refunded,Cleanser,Oily / Acne-Prone,C0270,Mobile App,Instagram
+R00028,O00456,P004,2024-10-17,Late delivery,Replacement Sent,Serum,All Skin Types,C0195,Website,Referral
+R00029,O00459,P010,2024-10-31,Skin irritation,Under Review,Moisturizer,All Skin Types,C0079,Website,Website Direct
+R00030,O00467,P001,2025-11-20,Skin irritation,Refunded,Serum,Oily / Acne-Prone,C0397,Website,Google Search
+R00031,O00501,P027,2025-03-27,Damaged packaging,Under Review,Body Care,Oily / Acne-Prone,C0223,Mobile App,Google Search
+R00032,O00513,P017,2025-07-02,Damaged packaging,Under Review,Cleanser,Sensitive / Dry,C0264,Website,Instagram
+R00033,O00517,P016,2024-07-02,Skin irritation,Refunded,Cleanser,Oily / Acne-Prone,C0115,Mobile App,Instagram
+R00034,O00543,P012,2024-08-19,Skin irritation,Under Review,Moisturizer,Dry,C0432,Mobile App,Referral
+R00035,O00546,P003,2024-08-29,Damaged packaging,Under Review,Serum,All Skin Types,C0280,Mobile App,Instagram
+R00036,O00555,P028,2024-11-04,Skin irritation,Refunded,Lip Care,All Skin Types,C0304,Marketplace,Referral
+R00037,O00576,P011,2025-08-19,Changed mind,Replacement Sent,Moisturizer,Sensitive,C0307,Website,Referral
+R00038,O00579,P017,2025-02-05,Wrong item received,Refunded,Cleanser,Sensitive / Dry,C0442,Mobile App,Instagram
+R00039,O00584,P012,2025-01-25,Skin irritation,Replacement Sent,Moisturizer,Dry,C0268,Mobile App,Google Search
+R00040,O00592,P005,2024-04-28,Late delivery,Replacement Sent,Serum,Normal / Dry,C0242,Mobile App,Website Direct
+R00041,O00595,P009,2025-10-31,Damaged packaging,Refunded,Moisturizer,Dry / Sensitive,C0039,Marketplace,Instagram
+R00042,O00607,P001,2024-12-01,Skin irritation,Under Review,Serum,Oily / Acne-Prone,C0449,Mobile App,Referral
+R00043,O00617,P004,2025-07-14,Changed mind,Replacement Sent,Serum,All Skin Types,C0186,Website,Instagram
+R00044,O00630,P003,2024-12-22,Skin irritation,Under Review,Serum,All Skin Types,C0180,Marketplace,Website Direct
+R00045,O00643,P004,2025-01-27,Damaged packaging,Replacement Sent,Serum,All Skin Types,C0308,Mobile App,Website Direct
+R00046,O00659,P004,2025-10-29,Changed mind,Refunded,Serum,All Skin Types,C0177,Website,Website Direct
+R00047,O00668,P007,2024-01-26,Skin irritation,Under Review,Serum,Oily / Combination,C0230,Mobile App,Google Search
+R00048,O00693,P009,2024-08-25,Damaged packaging,Refunded,Moisturizer,Dry / Sensitive,C0022,Website,Referral
+R00049,O00694,P025,2024-11-27,Wrong item received,Replacement Sent,Hair Care,Hair Care,C0179,Website,Website Direct
+R00050,O00697,P014,2024-12-16,Changed mind,Replacement Sent,Sunscreen,All Skin Types,C0441,Website,Google Search
+R00051,O00715,P004,2025-05-13,Damaged packaging,Refunded,Serum,All Skin Types,C0184,Mobile App,Instagram
+R00052,O00742,P009,2024-06-03,Late delivery,Replacement Sent,Moisturizer,Dry / Sensitive,C0126,Website,YouTube
+R00053,O00747,P004,2025-08-02,Late delivery,Refunded,Serum,All Skin Types,C0296,Mobile App,Instagram
+R00054,O00776,P026,2025-12-15,Skin irritation,Refunded,Body Care,All Skin Types,C0296,Website,Instagram
+R00055,O00818,P008,2025-03-14,Damaged packaging,Replacement Sent,Serum,Normal / Mature,C0062,Website,Instagram
+R00056,O00840,P019,2025-05-10,Skin irritation,Under Review,Toner,Sensitive,C0423,Mobile App,Google Search
+R00057,O00857,P026,2024-04-01,Skin irritation,Under Review,Body Care,All Skin Types,C0134,Mobile App,Website Direct
+R00058,O00880,P001,2024-03-09,Skin irritation,Replacement Sent,Serum,Oily / Acne-Prone,C0474,Mobile App,YouTube
+R00059,O00894,P001,2025-02-28,Skin irritation,Refunded,Serum,Oily / Acne-Prone,C0231,Website,Instagram
+R00060,O00906,P025,2025-09-05,Changed mind,Under Review,Hair Care,Hair Care,C0321,Mobile App,Google Search
+R00061,O00928,P021,2025-08-20,Late delivery,Refunded,Eye Care,All Skin Types,C0089,Mobile App,YouTube
+R00062,O00930,P006,2025-01-21,Skin irritation,Replacement Sent,Serum,Dry / Dehydrated,C0087,Website,Google Search
+R00063,O00977,P002,2024-07-08,Skin irritation,Refunded,Serum,Oily / Combination,C0452,Website,Instagram
+R00064,O01001,P006,2025-11-20,Skin irritation,Under Review,Serum,Dry / Dehydrated,C0186,Marketplace,Instagram
+R00065,O01005,P015,2025-01-31,Late delivery,Refunded,Sunscreen,Oily / Combination,C0180,Mobile App,Website Direct
+R00066,O01007,P009,2025-05-06,Late delivery,Refunded,Moisturizer,Dry / Sensitive,C0018,Website,Website Direct
+R00067,O01010,P007,2024-06-01,Late delivery,Under Review,Serum,Oily / Combination,C0079,Mobile App,Website Direct
+R00068,O01030,P023,2024-08-27,Wrong item received,Under Review,Hair Care,Scalp Care,C0115,Website,Instagram
+R00069,O01048,P009,2025-06-16,Skin irritation,Replacement Sent,Moisturizer,Dry / Sensitive,C0256,Website,Google Search
+R00070,O01089,P014,2025-09-17,Late delivery,Under Review,Sunscreen,All Skin Types,C0301,Website,Google Search
+R00070,O01089,P014,2025-09-17,Late delivery,Under Review,Sunscreen,All Skin Types,C0301,Website,Google Search
+R00071,O01110,P010,2025-10-14,Changed mind,Refunded,Moisturizer,All Skin Types,C0007,Website,Google Search
+R00072,O01123,P021,2025-02-10,Wrong item received,Replacement Sent,Eye Care,All Skin Types,C0431,Mobile App,Google Search
+R00073,O01139,P015,2024-11-18,Wrong item received,Replacement Sent,Sunscreen,Oily / Combination,C0497,Website,Google Search
+R00074,O01144,P014,2025-01-31,Wrong item received,Under Review,Sunscreen,All Skin Types,C0450,Website,Instagram
+R00075,O01162,P006,2025-07-24,Wrong item received,Under Review,Serum,Dry / Dehydrated,C0071,Website,Instagram
+R00076,O01183,P024,2024-11-04,Skin irritation,Refunded,Hair Care,Scalp Care,C0126,Website,YouTube
+R00077,O01201,P021,2025-04-03,Damaged packaging,Replacement Sent,Eye Care,All Skin Types,C0495,Website,YouTube
+R00078,O01206,P008,2024-11-28,Damaged packaging,Under Review,Serum,Normal / Mature,C0321,Website,Google Search
+R00079,O01235,P001,2025-10-03,Damaged packaging,Refunded,Serum,Oily / Acne-Prone,C0431,Website,Google Search
